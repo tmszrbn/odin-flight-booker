@@ -1,0 +1,22 @@
+<h1>Flights#index</h1>
+
+<%= debug params %>
+<%= form_tag flights_path, method: :get, id: 'search-form' do%>
+<%= select_tag :from_airport, options_for_select(@airports) %>
+<%= select_tag :to_airport, options_for_select(@airports) %>
+
+<%= select_tag :passengers_count, options_for_select(@passengers_count) %>
+<%= select_date Time.now %>
+<%= submit_tag 'Submit' %>
+<% end %>
+<ul>
+<%= form_tag new_booking_path, method: :get, id: 'booking-form' do %>
+<% @flights.each do |f| %>
+<li>
+    <%= f.from_airport.code %> → <%= f.to_airport.code %><%= radio_button_tag :flight, f.id %>
+</li>
+<% end %>
+<%= hidden_field_tag :passengers_count, params[:passengers_count] %>
+<%= submit_tag 'Select flight' %>
+<% end %>
+</ul>

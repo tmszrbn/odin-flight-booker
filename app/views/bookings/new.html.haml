@@ -1,0 +1,13 @@
+%h1 bookings#new
+= debug params
+= form_for @booking do |f|
+    - passengers_count = params[:passengers_count].to_i
+    = hidden_field :flight, :id, value: params[:flight]
+    %div.passenger
+        = f.fields_for :passengers do |p|
+            = p.label :email
+            = p.email_field :email
+            = p.label :name
+            = p.text_field :name
+      
+    = submit_tag "Submit booking"
